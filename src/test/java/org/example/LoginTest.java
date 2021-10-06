@@ -19,7 +19,7 @@ public class LoginTest extends BaseTest {
         loginPage.inputPasswd(ConfProperties.getProperty("pass"));
         loginPage.clickNextPassBtn();
         //вызываем меню
-        FeedPage profilePage = loginPage.clickLoginBtn();
+        ProfilePage profilePage = loginPage.clickLoginBtn();
         profilePage.userMenu();
         //получаем отображаемый логин
         String user = profilePage.getUserName();
@@ -33,7 +33,7 @@ public class LoginTest extends BaseTest {
 
     @AfterClass
     public static void tearDown() {
-        FeedPage profilePage = new FeedPage(driver);
+        ProfilePage profilePage = new ProfilePage(driver);
         profilePage.userLogout();
         driver.quit();
     }

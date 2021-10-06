@@ -57,8 +57,8 @@ public class LoginPage {
         nextPassBtn.click();
     }
 
-    public FeedPage clickLoginBtn() {
+    public ProfilePage clickLoginBtn() {
         notNowBtn.click();
-        return new FeedPage(driver);
+        return new ProfilePage(driver);
     }
 }
