@@ -3,12 +3,14 @@ package models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     private String login;
     private Integer id;
     private String avatar_url;
+    private String node_id;
     private String gravatar_id;
     private String html_url;
     private String followers_url;
@@ -28,7 +30,7 @@ public class User {
     private String email;
     private String hireable;
     private String bio;
-    private String public_repos;
+    private Integer public_repos;
     private Integer public_gists;
     private Integer followers;
     private Integer following;

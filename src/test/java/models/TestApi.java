@@ -1,47 +1,28 @@
 package models;
 
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
+import api.UsersApi;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.List;
-
-import static io.restassured.RestAssured.*;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.testng.asserts.SoftAssert;
 
 
 public class TestApi {
+      private UsersApi usersApi = new UsersApi();
 
-    private static RequestSpecification spec;
+      @Test
+      public void testUserInfoResponseType() {
+          User user = usersApi.getUser("Doomiley");
+          SoftAssert softAssert = new SoftAssert();
+          softAssert.assertEquals(user.getLogin(), "Doomiley");
+          softAssert.assertEquals(user.getId(), Integer.valueOf(49987832));
+          softAssert.assertAll();
+      }
 
+      @Test
+      public void testUserInfoResponseNegative() {
+          User user = usersApi.getUser("sdfsdfsd!sdfsdfsdfsdfthjkl;lkllk,lkjukmkj,kjm", 404);
 
-    @BeforeClass
-    public static void initSpec() {
-        spec = new RequestSpecBuilder()
-                .setContentType(ContentType.JSON)
-                .setBaseUri("https://reqres.in/api")
-                .setBasePath("/users")
-                .build();
     }
-
-        @Test
-        public void testUserInfoResponseType() {
-         List<User> users = given()
-                 .spec(spec)
-                 .when()
-                 .get()
-                 .then()
-                 .statusCode(200)
-                 .extract().jsonPath().getList("data", User.class);
-
-         assertThat(users).extracting(User::getEmail).contains("george.bluth@reqres.in");
-        }
-
 }
 
 
